@@ -249,6 +249,10 @@ public class NodePublisher implements NodeCameraView.NodeCameraViewCallback {
         jniUseCustomFilter();
     }
 
+    public void setAudioMuted(boolean pause) {
+        this.jniAudioMuted(pause);
+    }
+
     private void onEvent(int event, String eventMsg) {
         if (mNodePublisherDelegate != null) {
             mNodePublisherDelegate.onEventCallback(this, event, eventMsg);
