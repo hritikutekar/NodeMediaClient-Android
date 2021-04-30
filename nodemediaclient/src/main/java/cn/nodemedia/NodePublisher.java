@@ -34,6 +34,8 @@ public class NodePublisher implements NodeCameraView.NodeCameraViewCallback {
     private String swfUrl;
     private String connArgs;
 
+    private AudioManager am;
+
     private boolean isFrontCamera;
     private boolean isDisplayFrontMirror;
     private boolean isStartPreview;
@@ -116,9 +118,8 @@ public class NodePublisher implements NodeCameraView.NodeCameraViewCallback {
                     }
                 }
             };
-            AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+            am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
             am.requestAudioFocus(sAudioFocusChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN);
-
         }
         publishers.add(this);
     }
@@ -250,7 +251,7 @@ public class NodePublisher implements NodeCameraView.NodeCameraViewCallback {
     }
 
     public void setAudioMuted(boolean pause) {
-        this.jniAudioMuted(pause);
+        am.setMicrophoneMute(pause);
     }
 
     private void onEvent(int event, String eventMsg) {
